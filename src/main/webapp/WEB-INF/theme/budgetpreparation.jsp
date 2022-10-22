@@ -421,7 +421,8 @@ java.util.Date date = new java.util.Date();
                           </div>
                           <div class="mb-3 row form-group">
                             <div class="col-sm-10">
-                              <input type="submit"  value="Save" disabled="disabled" id="salesfield7" class="budgets" />
+                              <input type="submit"  value="Save" disabled="disabled" style="width: 15%; position: relative; text-align: center;" id="salesfield7" class="budgets btn btn-info" />
+                               <button class="budgets btn btn-success save-btn" style="width: 15%; position: relative; text-align: center;" onclick="submitForms()">Save As Draft</button>
                               <span class="success" style="display: hidden;">Thank's for submitting the form</span>
                             </div>
                         </div> 
@@ -469,7 +470,8 @@ java.util.Date date = new java.util.Date();
                           </div>
                              <div class="mb-3 row form-group">
                             <div class="col-sm-10">
-                            <input type="submit"  value="Save" disabled="disabled" id="Interestfield7" class="budgets" />
+                            <input type="submit"  value="Save" style="width: 15%; position: relative; text-align: center;" disabled="disabled" id="Interestfield7" class="budgets btn btn-info" />
+                             <button class="budgets btn btn-success save-btn" style="width: 15%; position: relative; text-align: center;" onclick="submitForms()">Save As Draft</button>
                             </div>
                         </div> 
                       </div>
@@ -515,7 +517,8 @@ java.util.Date date = new java.util.Date();
                           <br>
                                  <div class="mb-3 row form-group">
                             <div class="col-sm-10">
-                              <input type="submit"  value="Save" disabled="disabled" id="taxfield7" class="budgets" />
+                              <input type="submit"  value="Save" style="width: 15%; position: relative; text-align: center;" disabled="disabled" id="taxfield7" class="budgets btn btn-info" />
+                               <button class="budgets btn btn-success save-btn" style="width: 15%; position: relative; text-align: center;" onclick="submitForms()">Save As Draft</button>
                             </div>
                         </div> 
                           </div> 
@@ -560,7 +563,8 @@ java.util.Date date = new java.util.Date();
                           </div>
                                        <div class="mb-3 row form-group">
                             <div class="col-sm-10">
-                              <input type="submit"  value="Save" disabled="disabled" id="insurancefield7" class="budgets"/>
+                              <input type="submit"  value="Save" style="width: 15%; position: relative; text-align: center;" disabled="disabled" id="insurancefield7" class="budgets btn btn-info"/>
+                               <button class="budgets btn btn-success save-btn" style="width: 15%; position: relative; text-align: center;" onclick="submitForms()">Save As Draft</button>
                             </div>
                         </div> 
                                     
@@ -604,14 +608,17 @@ java.util.Date date = new java.util.Date();
                                 <input class="form-control form-control-lg budgets" disabled="disabled" id="salaryfield6" name="approval" type="text" placeholder="enter current year budgeted sales amount" aria-label=".form-control-lg example">
                             </div>
                           </div>
+                          <br>
+                          
                                      <div class="mb-3 row form-group">
                             <div class="col-sm-10">
-                              <input type="submit" class="budgets" disabled="disabled" id="salaryfield7"  value="Save" />
+                              <input type="submit" class="budgets btn btn-info" style="width: 10%; position: relative; text-align: center;" disabled="disabled" id="salaryfield7"  value="Save" />
+                               <button class="budgets btn btn-success save-btn" style="width: 15%; position: relative; text-align: center;" onclick="submitForms()">Save As Draft</button>
                             </div>
                         </div> 
                           </div> 
       </form>
-                         <button class="btn btn-success save-btn" style="font-size: medium; border-radius: 4px; size-adjust: 100px; width: 20%; margin-left:40%; margin-right: -40%; height: 150%;  color: white; border-color: cornsilk; background-color: #07866a;" onclick="submitForms()">Save As Draft</button>
+                       
                             
                      </div>
                      
@@ -648,6 +655,7 @@ java.util.Date date = new java.util.Date();
               
 
                 <tr id="data-row">
+                 <%if(request.getAttribute("approval")!="approved"){%>
                     <td  id="id">${budget.budgetid}</td>
                     <td class="data" id="parent_row">${budget.parentclassification}</td>
                     <td class="data" id="subclass_row">${budget.subclassification}</td>
@@ -656,8 +664,8 @@ java.util.Date date = new java.util.Date();
                     <td class="data" id="prevbudget_row">${budget.prevbudgetamt}</td>
                     <td class="data" id="currentdate_row">${budget.currentdate}</td>
                     <td class="data" id="currentbudget_row">${budget.curbudgetamt}</td>
-                    <%if(request.getAttribute("approval")!="approved")
-                    	{%>
+                   
+                    	
                     <td id="approval_row">${budget.approvalstatus}</td>
                     
                     <%} %>
@@ -679,7 +687,7 @@ java.util.Date date = new java.util.Date();
 	
 <input value="Update"  type="submit" id="1${budget.budgetid }"   style="text-align: center; padding:10%; margin: 10%;" onclick="updateButton(this.id)"  class="btn btn-info data edit">
 <form id="myform"  action="budgetpreparation/edit/${budget.budgetid}" method="post">
-               		<input type="number" value="${budget.budgetid}" style="display: none;"  name="updatebudgetid" />				      
+               		<input type="number" value="${budget.budgetid}" style="display: none;"  name="budgetid" />				      
               <input  value="Save"  type="submit" id="Saves${budget.budgetid }"  style="text-align: center; padding:10%; margin: 10%; "  onclick="saveButton('1')"   class="btn-danger ml-2 data save " />
                      </form>
 							</td>
@@ -688,7 +696,7 @@ java.util.Date date = new java.util.Date();
  
                 </c:forEach>
              
-   
+               <tr> <th>Current Year Budgeted Totals</th></tr>
           
                  </c:if>                  
                         </tbody>
@@ -697,7 +705,7 @@ java.util.Date date = new java.util.Date();
                             <script type="text/javascript">
                         function updateButton(i)
                         {	
-                       
+                      
                            
                            const reminder = 100;
                        const saveid =    Number(i) - reminder;
@@ -725,25 +733,25 @@ java.util.Date date = new java.util.Date();
                             $(document).on('click', '.edit', function() {
                             	  $(this).parent().siblings('td.data').each(function() {
                             	    var content = $(this).html();
-                            	    $(this).html('<input name="updateparentclassification" type="text" value="' + content + '" />');
+                            	    $(this).html('<input name="parentclassification" type="text" value="' + content + '" />');
                             	    
                          
-                            	  $(this).html('<input name="updatesubclassification" type="text" value="' + content + '" />');
+                            	  $(this).html('<input name="subclassification" type="text" value="' + content + '" />');
                           	    
                   
-                            $(this).html('<input name="updatesource" type="text" value="' + content + '" />');
+                            $(this).html('<input name="source" type="text" value="' + content + '" />');
                     	    
               
-                  	 $(this).html('<input name="updateprevactualamt" type="number" value="' + content + '" />');
+                  	 $(this).html('<input name="prevactualamt" type="number" value="' + content + '" />');
              	    
       
-           	 $(this).html('<input name="updatecurbudgetamt" type="number" value="' + content + '" />');
+           	 $(this).html('<input name="curbudgetamt" type="number" value="' + content + '" />');
      	    
 
-   	 $(this).html('<input name="updatecurrentdate" type="text" value="' + content + '" />');
+   	 $(this).html('<input name="currentdate" type="text" value="' + content + '" />');
 	    
 
- $(this).html('<input name="updateapproval" type="text" value="' + content + '" />');
+ $(this).html('<input name="approval" type="text" value="' + content + '" />');
  
 });
    	  

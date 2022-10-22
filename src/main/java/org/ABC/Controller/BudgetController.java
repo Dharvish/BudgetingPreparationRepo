@@ -101,7 +101,7 @@ public class BudgetController {
 	@ResponseStatus(value = HttpStatus.OK)
     public Budget update(Budget b,@PathVariable("budgetid") int id, HttpServletRequest request) {
    	 
-      id = Integer.parseInt(request.getParameter("updatebudgetid")); 
+      id = Integer.parseInt(request.getParameter("budgetid")); 
 		String parentclassification = request.getParameter("updateparentclassification");
 		String subclassification = request.getParameter("updatesubclassification");
 		String source = request.getParameter("updatesource");
